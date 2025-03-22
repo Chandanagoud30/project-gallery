@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Management</title>
+</head>
+<body>
+    <h2>User Profile Management</h2>
+
+    
+    <input type="text" id="name" placeholder="Enter Name"><br><br>
+    <input type="text" id="role" placeholder="Enter Role"><br><br>
+    <input type="text" id="skills" placeholder="Enter Skills"><br><br>
+    <input type="text" id="year" placeholder="Enter Year of Birth"><br><br>
+    <input type="text" id="favorite" placeholder="Enter Favorite Task"><br><br>
+
+    <button onclick="insertRecord()">Insert Profile</button>
+    <button onclick="showAllProfiles()">Show All Info</button>
+
+    
+    <div id="profile_display"></div>
+
+    <script>
+        
+        let profiles = [];
+
+       
+        function insertRecord() {
+            
+            let name = document.getElementById("name").value;
+            let role = document.getElementById("role").value;
+            let skills = document.getElementById("skills").value;
+            let year = document.getElementById("year").value;
+            let favoriteTask = document.getElementById("favorite").value;
+
+            
+            let profile = {
+                name: name,
+                role: role,
+                skills: skills,
+                year: year,
+                favoriteTask: favoriteTask,
+                description: function() {
+                    return "My name is " +this.name +" I am a "+this.role+" I specialize in "+this.skills+
+                    " I was born in the year " +this.year+ " and my favorite task is "+ this.favoriteTask;
+                }
+            };
+
+            
+            profiles.push(profile);
+
+            
+            document.getElementById("name").value = '';
+            document.getElementById("role").value = '';
+            document.getElementById("skills").value = '';
+            document.getElementById("year").value = '';
+            document.getElementById("favorite").value = '';
+
+            alert("Profile Inserted Successfully!");
+        }
+
+       
+        function showAllProfiles() {
+            if (profiles.length === 0) {
+                document.getElementById("profile_display").innerHTML = "No profiles found.";
+                return;
+            }
+
+            let profilesInfo = "";
+            for (let i = 0; i < profiles.length; i++) {
+                profilesInfo += `<h3>Profile ${i + 1}</h3>`;
+                profilesInfo += `<p>${profiles[i].description()}</p>`;
+            }
+
+            document.getElementById("profile_display").innerHTML = profilesInfo;
+        }
+    </script>
+</body>
+</html>

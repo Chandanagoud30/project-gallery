@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <input id="input_a" placeholder="Enter A" />
+        <input id="input_b" placeholder="Enter B" />
+        <button onclick="calculate();">Calculate Sum</button>
+
+        <div id="demo_div">
+            The total sum is: <span id="output_span"></span>
+        </div>
+
+        <script>
+            const colors = ["red", "green", "blue", "orange"];
+            let idx = 0;
+            
+            function calculate() {
+                let a = parseInt(document.getElementById("input_a").value);
+                let b = parseInt(document.getElementById("input_b").value);
+
+                
+                if (a >= b) {
+                    document.getElementById("output_span").innerHTML = "0";  
+                    return;  
+                }
+
+                
+                let sum = 0;
+                let i = a;
+
+                
+                while (i <= b) {
+                    sum += i;
+                    i++;
+                }
+
+               
+                document.getElementById("output_span").innerHTML = sum;
+                document.getElementById("output_span").style.color = colors[idx];
+
+                
+                idx = (idx + 1) % colors.length;
+            }
+        </script>
+    </body>
+</html>

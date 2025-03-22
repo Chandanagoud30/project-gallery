@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Number Generator</title>
+    <style>
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #oopsMessage {
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+            margin-top: 10px;
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+    <h2>Random Number Generator</h2>
+    
+    <label for="minRange">Enter Min Range:</label>
+    <input type="number" id="minRange" placeholder="Enter Min Range">
+    <br><br>
+    
+    <label for="maxRange">Enter Max Range:</label>
+    <input type="number" id="maxRange" placeholder="Enter Max Range">
+    <br><br>
+    
+    <button onclick="generateRandom()">Generate Random Number</button>
+    
+    <p id="result"></p>
+    <p id="oopsMessage">Oops! The page has vanished.</p>
+
+    <script>
+        
+        function vanishAndRestore() {
+            document.body.style.display = "none"; 
+            setTimeout(function() {
+                document.getElementById("oopsMessage").style.display = "block"; 
+            }, 1000); 
+            
+            setTimeout(function() {
+                document.body.style.display = "block"; 
+                document.getElementById("oopsMessage").style.display = "none"; 
+            }, 3000);
+        }
+
+        
+        setTimeout(vanishAndRestore, 3000); 
+
+        
+        function generateRandom() {
+            let min = parseInt(document.getElementById("minRange").value);
+            let max = parseInt(document.getElementById("maxRange").value);
+
+            let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+            let resultElement = document.getElementById("result");
+
+            resultElement.innerText = `Random Number is: ${randomNum}`;
+
+            
+            let randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+            resultElement.style.color = randomColor;
+        }
+    </script>
+</body>
+</html>

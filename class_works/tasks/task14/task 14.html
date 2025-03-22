@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Profile Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(236, 230, 230);
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .input-container {
+            display: block;  
+            width: 100%;
+            text-align: center;
+        }
+
+        input {
+            width: 300px;  
+            padding: 15px;  
+            margin: 15px 0; 
+            text-align: center;
+            font-size: 16px;
+            border: 2px solid black;  
+            border-radius: 5px;
+        }
+
+        #searchName {
+            width: 350px; 
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        .insert-btn, .show-btn { 
+            background-color:green; 
+            color: white; 
+        }
+
+        .insert-btn:hover, .show-btn:hover { 
+            background-color: green; 
+        }
+
+        .clear-btn { 
+            background-color:red; 
+            color: white; 
+        }
+
+        .clear-btn:hover { 
+            background-color: red; 
+        }
+
+        #profile_display {
+            margin-top: 20px;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 15px;
+            margin: 10px auto;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h2>User Profile Management</h2>
+
+    <div class="input-container">
+        <input type="text" id="name" placeholder="Enter Name">
+        <input type="text" id="role" placeholder="Enter Role">
+        <input type="text" id="skills" placeholder="Enter Skills">
+        <input type="text" id="year" placeholder="Enter Year of Birth">
+        <input type="text" id="favorite" placeholder="Enter Favorite Task">
+    </div>
+
+    <div class="button-container">
+        <button class="insert-btn" onclick="insert()">Insert Profile</button>
+        <button class="show-btn" onclick="showAllProfiles()">Show All Info</button>
+        <button class="clear-btn" onclick="clearInputs()">Clear Inputs</button>
+        <button class="clear-btn" onclick="clearDisplay()">Clear Display</button>
+    </div>
+
+    <div class="input-container">
+        <input type="text" id="searchName" placeholder="Search by Name" oninput="searchProfile()">
+    </div>
+
+    <div id="profile_display"></div>
+
+    <script>
+        class UserProfile {
+            constructor(name, role, skills, year, favorite) {
+                this.name = name;
+                this.role = role;
+                this.skills = skills;
+                this.year = year;
+                this.favorite = favorite;
+            }
+
+            description() {
+                return "My name is " + this.name + ". I am a " + this.role + ". I specialize in " + this.skills +
+                    ". I was born in the year " + this.year + ", and my favorite task is " + this.favorite + ".";  
+            }
+        }
+
+        let profiles = [];
+
+        function insert() {
+            let name = document.getElementById("name").value;
+            let role = document.getElementById("role").value;
+            let skills = document.getElementById("skills").value;
+            let year = document.getElementById("year").value;
+            let favorite = document.getElementById("favorite").value;
+
+            if (!name || !role || !skills || !year || !favorite) {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            let profile = new UserProfile(name, role, skills, year, favorite);
+            profiles.push(profile);
+
+            clearInputs(); 
+        }
+
+        function showAllProfiles() {
+            let displayDiv = document.getElementById("profile_display");
+
+            if (profiles.length === 0) {
+                displayDiv.innerHTML = "<p>No profiles found. Please insert a profile first.</p>";
+                return;
+            }
+
+            let profilesInfo = "";
+            profiles.forEach((profile) => {
+                profilesInfo += `
+                    <div class="profile-card">
+                        <p>${profile.description()}</p>
+                    </div>
+                `;
+            });
+
+            displayDiv.innerHTML = profilesInfo;
+        }
+
+        function searchProfile() {
+            let searchQuery = document.getElementById("searchName").value.toLowerCase();
+            let displayDiv = document.getElementById("profile_display");
+
+            let filteredProfiles = profiles.filter(profile =>
+                profile.name.toLowerCase().includes(searchQuery)
+            );
+
+            if (filteredProfiles.length === 0) {
+                return; // Don't display anything if no match is found
+            }
+
+            let profilesInfo = "";
+            filteredProfiles.forEach((profile) => {
+                profilesInfo += `
+                    <div class="profile-card">
+                        <p>${profile.description()}</p>
+                    </div>
+                `;
+            });
+
+            displayDiv.innerHTML = profilesInfo;
+        }
+
+        function clearInputs() {
+            document.getElementById("name").value = "";
+            document.getElementById("role").value = "";
+            document.getElementById("skills").value = "";
+            document.getElementById("year").value = "";
+            document.getElementById("favorite").value = "";
+        }
+
+        function clearDisplay() {
+            document.getElementById("profile_display").innerHTML = "";
+        }
+    </script>
+</body>
+</html>

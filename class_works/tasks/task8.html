@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Uppercase Converter</title>
+        <script>
+            function generate()
+            {
+                let inputText = document.getElementById("input_field").value;
+                let upperText = inputText.toUpperCase();
+                document.getElementById("output_field").value = upperText;
+            }
+           
+        </script>
+        
+       
+    </head>
+<body>
+    <input id ="input_field"placeholder="Input Text" onkeyup="generate()"/>
+    <input id = "output_field"placeholder="Output Text" disabled/>
+</body>
+</html>
